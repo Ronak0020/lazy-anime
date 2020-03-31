@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const mongoose = require('mongoose');
 const dbURL = process.env.MONGODBURL;
-const { formatDate } = require("../../functions.js");
 mongoose.connect(dbURL, {
     useNewUrlParser: true
 })
@@ -13,7 +12,6 @@ module.exports = {
     category: "moderation",
     description: "Warn a member for breaking rules!",
     run: async(client, message, args) => {
-        const created = formatDate(message.createdAt);
         const target = message.mentions.users.first() || message.guild.members.get(args[0]);
         if(!target) return message.reply("Whom you wanna warn? Please mention the user.").then(m => m.delete(5000));
         const reason = args.slice(1).join(" ");
@@ -30,11 +28,11 @@ module.exports = {
                     guildID: message.guild.id,
                     userID: target.id,
                     mod: message.author.username,
-                    reason: reason + ` (${created})`
+                    reason: reason + ` (${message.createdAt})`
                 })
                 await newWarn.save().catch(e => console.log(e));
             } else if(user) {
-                user.reason = user.reason + "\n" + reason + `  (${created})`,
+                user.reason = user.reason + "\n" + reason + `  (${message.createdAt})`,
                 user.mod = user.mod + "\n" + message.author.username
                 await user.save().catch(e => console.log(e));
             }
