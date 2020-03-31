@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const mongoose = require('mongoose');
-const dbURL = 'mongodb://heroku_85nc06pf:t03p8l1j1smlo9ct6fi5bovp02@ds259738.mlab.com:59738/heroku_85nc06pf';
-const { getMember, formatDate } = require("../../functions.js");
+const dbURL = process.env.MONGODBURL;
+const { formatDate } = require("../../functions.js");
 mongoose.connect(dbURL, {
     useNewUrlParser: true
 })
