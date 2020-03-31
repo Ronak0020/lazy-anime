@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const mongoose = require('mongoose');
-const { getMember, formatDate } = require("../../functions.js");
+const { formatDate } = require("../../functions.js");
 const dbURL = process.env.MONGODBURL;
 mongoose.connect(dbURL, {
     useNewUrlParser: true
