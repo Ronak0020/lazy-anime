@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const mongoose = require('mongoose');
-const { formatDate } = require("../../functions.js");
 const dbURL = process.env.MONGODBURL;
 mongoose.connect(dbURL, {
     useNewUrlParser: true
@@ -14,7 +13,6 @@ module.exports = {
     usage: "<@user>",
     category: "moderation",
     run: async(client, message, args) => {
-        const created = formatDate(message.createdAt);
         const target = message.mentions.users.first() || message.guild.members.get(args[0]);
         if(!target) return message.reply("Please mention the user.").then(m => m.delete(5000));
         if(!message.member.hasPermission(["MANAGE_MESSAGES"])) return message.reply("You do not have permission to check warnings of a member.\nPermission required : `MANAGE_MESSAGES`");
