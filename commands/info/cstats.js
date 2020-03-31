@@ -16,7 +16,7 @@ module.exports = {
         .setFooter(client.user.username, client.user.displayAvatarURL)
         .setDescription(`**Total World cases :** ${all.cases}\n**Total Deaths :** ${all.deaths}\n**Total Recovered :** ${all.recovered}`)
         .setColor("RANDOM")
-        if(!args[0]) return message.channel.send(embed).catch(message.channel.send("Data was not found!"));
+        if(!args[0]) return message.channel.send(embed);
 
         const countrye = new Discord.RichEmbed()
         .setTitle("🌎 COVID-19 UPDATES - " + args.slice(1).join(" "))
