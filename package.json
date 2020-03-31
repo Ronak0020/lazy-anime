@@ -16,6 +16,7 @@
     "circular-json": "^0.5.9",
     "cleverio": "^5.0.0",
     "common-tags": "^1.8.0",
+    "covidtracker": "^1.1.0",
     "discord-giveaways": "^2.4.2",
     "discord-xp": "^1.0.5",
     "discord.js": "^11.5.1",
