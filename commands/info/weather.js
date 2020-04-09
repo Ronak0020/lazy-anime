@@ -9,14 +9,15 @@ module.exports = {
 	usage: "<city name>",
 	run: async (client, message, args) => {
 		let apiKey = process.env.weatherapi;
-		if (!args[0]) {
+		let arg = message.content.split(' ').join(' ').slice(10);
+		if (!arg) {
 	return message.reply('I need a city to check :wink:');
 	} fetch(`http://api.openweathermap.org/data/2.5/weather?q=${arg}&APPID=889f87d2b8bb69357fc4c2a9d58ae045&units=metric`)
 	.then(res => {
 		return res.json();
 		}).then(json => {
 			if(json.main === undefined) {
-				return message.reply(`**${args.join(" ")}** Is not inside my query, please check again`);
+				return message.reply(`**${arg}** Is not inside my query, please check again`);
 				}
 				let rise = json.sys.sunrise;
 				let date = new Date(rise * 1000);
