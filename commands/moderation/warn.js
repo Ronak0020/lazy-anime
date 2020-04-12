@@ -15,7 +15,7 @@ module.exports = {
     run: async(client, message, args) => {
         const created = formatDate(message.createdAt);
         const target = message.mentions.members.first() || message.guild.members.get(args[0]);
-        if(target.hasPermission(["ADMINISTRATOR"])) return message.reply("U can not warn this person!");
+        if(target.hasPermission(["ADMINISTRATOR"])) return message.reply("You can not warn an Admin. This person seems to be an Admin of this server.").then(m => m.delete(5000));
         if(!target) return message.reply("Whom you wanna warn? Please mention the user.").then(m => m.delete(5000));
         const reason = args.slice(1).join(" ");
         if(!reason) return message.reply("Please provide a reason to warn!").then(m => m.delete(5000));
