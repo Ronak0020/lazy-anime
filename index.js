@@ -37,6 +37,21 @@ client.on("ready", () => {
 });
 
 client.on("message", async message => {
+    const target = message.mentions.users.first();
+    AFK.findOne({
+        guildID: message.guild.id,
+        userID: target.id
+    }, async(err, afk) => {
+        if(err) console.log(err);
+            message.reply(`**${target.username}** is currently AFK: ${afk.reason}`);
+            if(message.author.id === afk.userID) {
+                await message.reply("Welcome back! I removed you afk!").then(m => m.delete(5000));
+                await afk.remove().catch(e => console.log(e));
+            }
+    })
+})
+
+client.on("message", async message => {
     Module.findOne({
         guildID: message.guild.id
     }, async(err, server) => {
