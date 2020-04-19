@@ -48,8 +48,8 @@ client.on("message", async message => {
         if(message.author.id !== afk.userID) {
             message.reply(`**${target.username}** is currently AFK: ${afk.reason}`);
             } else {
-                await message.reply("Welcome back! I removed you afk!").then(m => m.delete(5000));
                 await afk.remove().catch(e => console.log(e));
+                await message.reply("Welcome back! I removed you afk!").then(m => m.delete(5000));
             }
     })
 })
