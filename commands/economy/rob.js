@@ -33,6 +33,7 @@ module.exports = {
               serverID: message.guild.id
             }, (err, targetres) => {
               if (err) console.log(err);
+                if(sendres.coins < 500) return message.reply("You must have at least 500 coins in cash.Withdraw some or earn some.");
                 let chance = Math.floor(Math.random() * 100) + 1;
               if(chance < 50) {
               sendres.coins = sendres.coins - 500;
