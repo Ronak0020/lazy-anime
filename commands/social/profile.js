@@ -43,8 +43,11 @@ module.exports = {
                 .setColor("RANDOM")
                 .setTimestamp()
                 .setFooter("Ronak#0020's Creation")
-                .setDescription(`**User Name:** ${target.username}\n**Profile Title:** ${user.title}\n**About:** ${user.about}\n**Rep:** ${user.rep.toLocaleString()}\n**Pet Name:** ${user.petName}\n**Married With:** ${user.married}\n**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}\n**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`)
-                message.channel.send(embed)
+                if(!member) {
+                message.channel.send(embed.setDescription(`**User Name:** ${target.username}\n**Profile Title:** ${user.title}\n**About:** ${user.about}\n**Rep:** ${user.rep.toLocaleString()}\n**Pet Name:** ${user.petName}\n**Married With:** ${user.married}\n**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`))
+                } else if(member) {
+                    message.channel.send(embed.setDescription(`**User Name:** ${target.username}\n**Profile Title:** ${user.title}\n**About:** ${user.about}\n**Rep:** ${user.rep.toLocaleString()}\n**Pet Name:** ${user.petName}\n**Married With:** ${user.married}\n**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}\n**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`))
+                }
             })
 
         })
