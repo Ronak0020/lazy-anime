@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 const mongoose = require('mongoose');
 const Levels = require('discord-xp');
+const Profile = require("./modules/profile.js");
+const Money = require("./modules/money.js");
 const Module = require('./modules/module.js');
 const AFK = require('./modules/afk.js');
 const dbURL = process.env.MONGODBURL;
@@ -35,6 +37,41 @@ client.on("ready", () => {
         }
     }); 
 });
+
+client.on("message", async message => {
+    if(message.author.bot) return;
+    Money.findOne({
+        serverID: message.guild.id,
+        userID: message.author.id
+    }, async(err, user) => {
+        if(err) console.log(err);
+        if(!user) {
+            const newMoney = new Money({
+                userID: message.author.id,
+                serverID: message.guild.id, 
+                coins: "0",
+                bank: "0"
+            })
+            await newMoney.save().catch(e => console.log(e));
+        }
+        Profile.findOne({
+            userID: message.author.id
+        }, async(err, user) => {
+            if(err) console.log(err);
+            if(!user) {
+                const newProfile = new Profile({
+                    userID: target.id,
+                    about: "Just a normal human",
+                    petName: "",
+                    married: "",
+                    title: "LA member",
+                    rep: "0"
+                })
+                await newProfile.save().catch(e => console.log(e))
+            }
+        })
+    })
+})
 
 client.on("message", async message => {
     if (message.author.bot) return;
