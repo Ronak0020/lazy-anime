@@ -6,7 +6,7 @@ module.exports = {
     category: "moderation",
     usage: "<@user>",
     run: async(client, message, args) => {
-        if(!message.author.hasPermission(["MANAGE_MESSAGES"])) return message.reply("You do not have permission to use this command!").then(m => m.delete(5000));
+        if(!message.member.hasPermission(["MANAGE_MESSAGES"])) return message.reply("You do not have permission to use this command!").then(m => m.delete(5000));
         const toMute = message.mentions.users.first() || message.guild.members.get(args[0]);
         if(!toMute) return message.reply("Please mention the user u want to mute!").then(m => m.delete(5000));
         const reason = args.slice(1).join(" ");
