@@ -9,8 +9,8 @@ module.exports = {
   aliases: ["vol"],
   usage: "<volume>",
   run: async(client, message, args) => {
-      const vol = args[0];
+      var volume = args[0];
       if(!vol) return message.reply("Please provide the volume you want. It must be an integer.").then(m => m.delete(5000));
-      musicPlayer.volume(message, vol)
+      musicPlayer.volume(message, volume)
   }
 }
