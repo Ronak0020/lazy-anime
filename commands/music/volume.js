@@ -7,6 +7,7 @@ module.exports = {
   category: "music",
   description: "Sets the volume for songs.",
   aliases: ["vol"],
+  usage: "<volume>",
   run: async(client, message, args) => {
       const vol = args[0];
       if(!vol) return message.reply("Please provide the volume you want. It must be an integer.").then(m => m.delete(5000));
