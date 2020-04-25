@@ -5,7 +5,7 @@ const musicPlayer = new MusicClient(process.env.YTKEY);
 module.exports = {
   name: "pause",
   category: "music",
-  description: "Pauses the currently playing music.",
+  description: "Pauses the music queue.",
   run: async(client, message, args) => {
       musicPlayer.pause(message)
   }
