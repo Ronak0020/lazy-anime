@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const MusicClient = require("la-music-core");
-const musicPlayer = new MusicClient(process.env.YTKEY);
+const musicPlayer = new MusicClient(process.env.YTKEY, { earProtections: false, volume: 100 });
 
 module.exports = {
   name: "play",
