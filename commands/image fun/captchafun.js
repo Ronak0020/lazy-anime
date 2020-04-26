@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { get } = require('snekfetch');
 
 module.exports = {
-    name: "cap",
+    name: "captcha",
     usage: "[@user]",
     description: "Get a captcha for a user\'s avatar!",
     category: "image fun",
