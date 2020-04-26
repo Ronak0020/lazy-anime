@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-const snekfetch = require('snekfetch');
+const { get } = require('snekfetch');
 
 module.exports = {
-    name: "captcha",
+    name: "cap",
     usage: "[@user]",
     description: "Get a captcha for a user\'s avatar!",
     category: "image fun",
@@ -10,16 +10,12 @@ module.exports = {
       let target = message.mentions.users.first() || message.author;
       let profilepic = target.avatarURL;
       if(!profilepic) return message.reply("I cant make a captcha of a user with no profile pic!");
-      let url = `https://eclyssia-api.tk/api/v1/captcha?url=${profilepic}&username=${target.username}`;
-
-      snekfetch.get(url).then(async res => {
-          await message.channel.send({
-            files: [{
-                attachment: res.body,
-                name: `${target.tag}-captcha.gif`
-            }]
-          });
-      }).catch(err => console.error(err));
-
+      const { body } = await get(`https://nekobot.xyz/api/imagegen?type=captcha&url=${profilepic}&username=${target.username}`);
+      const emb = new Discord.RichEmbed()
+      .setImage(body.message)
+      .setTimestamp()
+      .setColor("RANDOM")
+      .setFooter(client.user.username, client.user.displayAvatarURL);
+      message.channel.send(emb);
 }
 }
