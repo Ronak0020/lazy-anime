@@ -8,9 +8,6 @@ const Money = require("./modules/money.js");
 const Module = require('./modules/module.js');
 const AFK = require('./modules/afk.js');
 const dbURL = process.env.MONGODBURL;
-const Discord = require("discord.js");
-const MusicClient = require("la-music-core");
-const musicPlayer = new MusicClient(process.env.YTKEY, { earProtections: false, volume: 100 });
 
 mongoose.connect(dbURL, {
     useNewUrlParser: true
@@ -40,39 +37,6 @@ client.on("ready", () => {
         }
     }); 
 });
-
-client.on("message", async message => {
-    Module.findOne({
-        guildID: message.guild.id
-    }, async(err, server) => {
-        if(err) console.log(err);
-        if(!server) {
-            const newModule = new Module({
-                guildID: message.guild.id,
-                levelModule: "on",
-                coinModule: "on",
-                prefix: "la!",
-                logChannel: "logs"
-            });
-            await newModule.save().catch(e => console.log(e));
-        }
-    const args = message.content.slice(server.prefix.length).trim().split(/ +/g);
-    var searchArray = args.join(" ")
-    var volume = args[0]
-    musicPlayer.play(message, searchArray)
-    musicPlayer.playTop(message, searchArray)
-    musicPlayer.stop(message)
-    musicPlayer.nowPlaying(message)
-    musicPlayer.showQueue(message)
-    musicPlayer.skip(message)
-    musicPlayer.remove(message)
-    musicPlayer.pause(message)
-    musicPlayer.repeat(message)
-    musicPlayer.loop(message)
-    musicPlayer.shuffle(message)
-    musicPlayer.volume(message, volume)
-    });  
-})
 
 client.on("message", async message => {
     if(message.author.bot) return;
