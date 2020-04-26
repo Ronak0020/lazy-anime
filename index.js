@@ -8,6 +8,7 @@ const Money = require("./modules/money.js");
 const Module = require('./modules/module.js');
 const AFK = require('./modules/afk.js');
 const dbURL = process.env.MONGODBURL;
+const music = require('discord.js-music-v11');
 
 mongoose.connect(dbURL, {
     useNewUrlParser: true
@@ -37,6 +38,8 @@ client.on("ready", () => {
         }
     }); 
 });
+
+music(client);
 
 client.on("message", async message => {
     if(message.author.bot) return;
