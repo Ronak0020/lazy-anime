@@ -44,7 +44,7 @@ module.exports = {
             .setColor("RED")
             .setFooter(client.user.username, client.user.displayAvatarURL)
             target.send(embed);
-            message.channel.send(`Successfully warned **${target.tag}**!`)
+            message.channel.send(`Successfully warned **${target.user.tag}**!`)
         })
     }
 }
