@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 const mongoose = require('mongoose');
 const Levels = require('discord-xp');
+const giveaways = require("discord-giveaways");
 const Profile = require("./modules/profile.js");
 const Money = require("./modules/money.js");
 const Module = require('./modules/module.js');
@@ -35,7 +36,16 @@ client.on("ready", () => {
             name: "me getting developed",
             type: "STREAMING"
         }
-    }); 
+    });
+    giveaways.launch(client, {
+        updateCountdownEvery: 10000,
+        botsCanWin: false,
+        ignoreIfHasPermission: [],
+        embedColor: "#FFFF00",
+        embedColorEnd: "#FFFFFF",
+        reaction: "🎁",
+        storage: __dirname + "/giveaways.json"
+          });
 });
 
 client.on("message", async message => {
