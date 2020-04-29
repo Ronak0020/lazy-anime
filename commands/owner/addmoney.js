@@ -17,7 +17,7 @@ module.exports = {
             "cash",
             "bank"
         ];
-        if(!message.author.id === "603508758626435072") return message.reply("You are not my owner! u can not use this command!");
+        if(!message.author.id === "625877119989186570") return message.reply("You are not my owner! u can not use this command!");
         let target = message.mentions.members.first() || message.guild.members.get(args[0]);
         if(!args[1]) return message.channel.send("Where to add coins? cash or bank? plz be specific.");
         //if(!args[1].content.toLowerCase() === options) return message.reply("This is not a valid option to add money in.");
