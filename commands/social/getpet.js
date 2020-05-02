@@ -10,6 +10,9 @@ mongoose.connect(dbUrl, {
 });
 module.exports = {
     name: "getpet",
+    aliases: ["newpet"],
+    description: "Get a pet for yourself!",
+    category: "social",
     run: async (client, message, args) => {
     //this is where the actual code for the command goes
     await message.delete();
