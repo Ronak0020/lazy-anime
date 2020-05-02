@@ -2,13 +2,16 @@ const Discord = require('discord.js')
 const Pet = require("../../modules/pets.js")
 const petUtil = require("../../utils/pets.js")
 const mongoose = require("mongoose");
-const dbUrl = "mongodb://heroku_85nc06pf:t03p8l1j1smlo9ct6fi5bovp02@ds259738.mlab.com:59738/heroku_85nc06pf";
+const dbUrl = process.env.MONGODBURL;
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 module.exports = {
     name: "trainpet",
+    aliases: ["train"],
+    description: "Train your pet to level it up",
+    category: "social",
     run: async (client, message, args) => {
     //this is where the actual code for the command goes
     Pet.findOne({
