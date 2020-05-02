@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const Pet = require("../../modules/pets.js")
-const Coins = require("../../modules/coins.js");
+const Coins = require("../../modules/money.js");
 const randomName = require("node-random-name")
 const mongoose = require("mongoose");
 const dbUrl = process.env.MONGODBURL;
