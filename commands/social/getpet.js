@@ -30,8 +30,8 @@ module.exports = {
             }, (err, coins) => {
                 if (err) console.log(err)
                 if (!coins) return message.reply("Sorry, you don't have any coins.");
-                if (coins.coins < 1000) return message.reply("Sorry, you need 1 coins to buy a pet.")
-                        coins.coins = coins.coins - 1000;
+                if (coins.coins < 30000) return message.reply("Sorry, you need 30,000 coins to buy a pet.")
+                        coins.coins = coins.coins - 30000;
                         coins.save().catch(err => console.log(err));
 
                         const newDoc = new Pet({
