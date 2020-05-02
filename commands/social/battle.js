@@ -34,6 +34,7 @@ module.exports = {
       const filter = m => m.author.id === target.id;
       message.channel.send(target + " you have been challenged by " + message.author + " for " + price + " coins. To accept type 'accept'. You have 20 seconds").then(r => r.delete(20000));
       message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ["time"] }).then(msg => {
+          msg.delete(10000);
         if (msg.first().content === 'cancel') {
           return message.channel.send(target + ", Canceled... " + message.author).then(r => r.delete(10000));
         } else if (msg.first().content === 'accept') {
