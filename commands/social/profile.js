@@ -6,6 +6,8 @@ mongoose.connect(dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
+const Bprofile = require("../../modules/battleprofile");
+const Pet = require("../../modules/pets");
 const Profile = require('../../modules/profile');
 const Money = require('../../modules/money');
 
@@ -36,18 +38,32 @@ module.exports = {
                 serverID: message.guild.id,
             }, async(err, money) => {
                 if(err) console.log(err);
-                const member = await Levels.fetch(target.id, message.guild.id, 1000);
-                const embed = new Discord.RichEmbed()
-                .setTitle("Profile")
-                .setThumbnail(target.avatarURL)
-                .setColor("RANDOM")
-                .setTimestamp()
-                .setFooter("Ronak#0020's Creation")
-                if(!member) {
-                message.channel.send(embed.setDescription(`**User Name:** ${target.username}\n**Profile Title:** ${user.title}\n**About:** ${user.about}\n**Rep:** ${user.rep.toLocaleString()}\n**Pet Name:** ${user.petName}\n**Married With:** ${user.married}\n**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`))
-                } else if(member) {
-                    message.channel.send(embed.setDescription(`**User Name:** ${target.username}\n**Profile Title:** ${user.title}\n**About:** ${user.about}\n**Rep:** ${user.rep.toLocaleString()}\n**Pet Name:** ${user.petName}\n**Married With:** ${user.married}\n**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}\n**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`))
-                }
+
+                Bprofile.findOne({
+                    userID: target.id,
+                    serverID: message.guild.id
+                }, async(err, bpro) => {
+                    if(err) console.log(err);
+
+                    Pet.findOne({
+                        ownerID: target.id
+                    }, async(err, pet) => {
+                        if(err) console.log(err);
+                        const member = await Levels.fetch(target.id, message.guild.id, 1000);
+                        const embed = new Discord.RichEmbed()
+                        .setTitle("Profile")
+                        .setThumbnail(target.avatarURL)
+                        .setColor("RANDOM")
+                        .setTimestamp()
+                        .setFooter("Ronak's Creation")
+                        .setDescription(`**User Name:** ${target.username}\n**Profile Title:** ${user.title}\n**About:** ${user.about}\n**Rep:** ${user.rep.toLocaleString()}`)
+                        .addField("Economy Stats:", `**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`)
+                        .addField("Level Stats:", `**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}`)
+                        .addField("Pet Stats:", `**Pet Name:** ${pet.petName}\n**Pet Trait:** ${pet.petTrait}\n**Pet Level:** ${pet.petLvl}`)
+                        .addField("Battle Stats:", `**Battles Won:** ${bpro.wins}\n**Battles Lost:** ${bpro.losses}\n**Class:** ${bpro.class}`)
+                        message.channel.send(embed)
+                    })
+                })
             })
 
         })
