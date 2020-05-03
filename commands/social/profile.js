@@ -72,7 +72,7 @@ module.exports = {
                         if(!member) {
                         message.channel.send(embed.addField("Pet Stats:", `**Pet Name:** ${pet.petName}\n**Pet Trait:** ${pet.petTrait}\n**Pet Level:** ${pet.petLvl}`))
                         } else if(!pet) {
-                            message.channel.send(embed.addField("Level Stats:", `**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}`)
+                            message.channel.send(embed.addField("Level Stats:", `**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}`))
                         } else if(!member && !pet) {
                                 message.channel.send(embed)
                             } else if(member && pet) {
