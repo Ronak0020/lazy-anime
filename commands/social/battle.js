@@ -9,10 +9,16 @@ mongoose.connect(dbUrl, {
 });
 module.exports = {
     name: "battle",
+    category: "social",
+    description: "Battle with another player and win coins.",
+    usage: "<@user> <amount to challenge for>",
+    aliases: ["fight"],
     run: async (client, message, args) => {
   //this is where the actual code for the command goes
   let target = message.mentions.members.first();
+  let author1 = message.author.username;
   if (!target) return message.reply("Please mention a member to battle!").then(r => r.delete(10000));
+  if(target.id === message.author.id) return message.reply("You can not battle with yourself.").then(r => r.delete(5000));
   let price = parseInt(args[1]);
   if (!price || isNaN(price) || price < 1) return message.reply("Please try that again... ").then(r => r.delete(10000));
   let embed = new Discord.RichEmbed()
@@ -31,39 +37,53 @@ module.exports = {
     }, (err, targetres) => {
       if (err) console.log(err)
       if (!targetres || targetres.coins < price) return message.reply("Sorry but the target doesn't have enough coins for that").then(r => r.delete(10000));
-      const filter = m => m.author.id === target.id;
-      message.channel.send(target + " you have been challenged by " + message.author + " for " + price + " coins. To accept type 'accept'. You have 20 seconds").then(r => r.delete(20000));
-      message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ["time"] }).then(msg => {
-          msg.delete(10000);
-        if (msg.first().content === 'cancel') {
-          return message.channel.send(target + ", Canceled... " + message.author).then(r => r.delete(10000));
-        } else if (msg.first().content === 'accept') {
-          let chance = Math.floor(Math.random() * 100) + 1;
-          console.log(chance)
-          if (chance < 50) {
-            //sender wins
-            battleUtils.recordSave(message, message.member, target);
-            targetres.coins = targetres.coins - price;
-            res.coins = res.coins + price;
-            embed.addField("Winner", message.author);
-            embed.addField("Loser", target);
-          } else {
-            //target wins
-            battleUtils.recordSave(message, target, message.member);
-            targetres.coins = targetres.coins + price;
-            res.coins = res.coins - price;
-            embed.addField("Winner", target);
-            embed.addField("Loser", message.author);
-          }
-          //end
-          targetres.save().catch(err => console.log(err));
-          res.save().catch(err => console.log(err));
-          message.channel.send(embed);
-        }
+      var fighter1 = message.author.id;
+var fighter2 = target.id;
+var challenged = target.toString();
+    message.channel.send(`${challenged}, ${author1} has challenged you to a duel. Do you accept the challenge? Type: \`yes\` or \`no\``)
+        .then(() => {
+            message.channel.awaitMessages(response => response.author.id === fighter2, {
+                max: 1,
+                time: 60000,
+                errors: ['time'],
+            })
+            .then((collected) => {
+                if(collected.first().content === 'yes') {
+                    message.channel.send(`accepted the challenge!`);
+                    let chance = Math.floor(Math.random() * 100) + 1;
+            console.log(chance)
+            if (chance < 50) {
+              //sender wins
+              battleUtils.recordSave(message, message.member, target);
+              targetres.coins = targetres.coins - price;
+              res.coins = res.coins + price;
+              embed.addField("Winner", message.author);
+              embed.addField("Loser", target);
+            } else {
+              //target wins
+              battleUtils.recordSave(message, target, message.member);
+              targetres.coins = targetres.coins + price;
+              res.coins = res.coins - price;
+              embed.addField("Winner", target);
+              embed.addField("Loser", message.author);
+            }
+            //end
+            targetres.save().catch(err => console.log(err));
+            res.save().catch(err => console.log(err));
+            message.channel.send(embed);
+                } else {
+                    if(collected.first().content === 'no') {
+                      return message.channel.send(target + ", Canceled... " + message.author).then(r => r.delete(10000));
+                }
+            }
+            })
+            .catch(() => {
+                message.channel.send(`No response. Fight has been cancelled.`);
+            });
       }).catch(err => {
         message.reply(" - " + target + " Time limit exceeded " + err.message).then(r => r.delete(5000));
+      })
       });
     });
-  });
-}
+  }
 }
