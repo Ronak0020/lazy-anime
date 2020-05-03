@@ -67,15 +67,14 @@ module.exports = {
                         .setFooter("Ronak's Creation")
                         .setDescription(`**User Name:** ${target.username}\n**Profile Title:** ${user.title}\n**About:** ${user.about}\n**Rep:** ${user.rep.toLocaleString()}`)
                         .addField("Economy Stats:", `**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`)
-       
                         .addField("Battle Stats:", `**Battles Won:** ${bpro.wins}\n**Battles Lost:** ${bpro.losses}\n**Class:** ${bpro.class}`)
-                        if(!member) {
+                        if(!(pet && member)) {
+                                message.channel.send(embed)
+                            } else if(!member) {
                         message.channel.send(embed.addField("Pet Stats:", `**Pet Name:** ${pet.petName}\n**Pet Trait:** ${pet.petTrait}\n**Pet Level:** ${pet.petLvl}`))
                         } else if(!pet) {
                             message.channel.send(embed.addField("Level Stats:", `**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}`))
-                        } else if(!member || pet) {
-                                message.channel.send(embed)
-                            } else if(member && pet) {
+                        } else if(member && pet) {
                                 embed.addField("Level Stats:", `**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}`)
                                 embed.addField("Pet Stats:", `**Pet Name:** ${pet.petName}\n**Pet Trait:** ${pet.petTrait}\n**Pet Level:** ${pet.petLvl}`)
                                 message.channel.send(embed)
