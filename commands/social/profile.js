@@ -57,14 +57,13 @@ module.exports = {
                         .setTimestamp()
                         .setFooter("Ronak's Creation")
                         .setDescription(`**User Name:** ${target.username}\n**Profile Title:** ${user.title}\n**About:** ${user.about}\n**Rep:** ${user.rep.toLocaleString()}`)
-                        .addField("Economy Stats:", `**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`)
-                        .addField("Pet Stats:", `**Pet Name:** ${pet.petName}\n**Pet Trait:** ${pet.petTrait}\n**Pet Level:** ${pet.petLvl}`)
-                        .addField("Battle Stats:", `**Battles Won:** ${bpro.wins}\n**Battles Lost:** ${bpro.losses}\n**Class:** ${bpro.class}`);
-                        if(!member) {
+                        .addField("Economy Stats:", `**Cash:** ${money.coins.toLocaleString()}\n**Bank:** ${money.bank.toLocaleString()}`);
+                        if(!member && pet) {
                             message.channel.send(embed)
                         }
                         //.addField("Level Stats:", `**Server Level:** ${member.level}\n**Server XP:** ${member.xp.toLocaleString()}`)
-                        
+                        //.addField("Pet Stats:", `**Pet Name:** ${pet.petName}\n**Pet Trait:** ${pet.petTrait}\n**Pet Level:** ${pet.petLvl}`)
+                        //.addField("Battle Stats:", `**Battles Won:** ${bpro.wins}\n**Battles Lost:** ${bpro.losses}\n**Class:** ${bpro.class}`)
                         //message.channel.send(embed)
                     })
                 })
