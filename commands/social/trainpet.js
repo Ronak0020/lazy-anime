@@ -15,7 +15,7 @@ module.exports = {
     category: "social",
     run: async (client, message, args) => {
     if (cooldown.has(message.author.id)) {
-            message.channel.send("Wait `1 minute` before using this command again. - " + message.author);
+            message.channel.send("Wait `10 seconds` before using this command again. - " + message.author);
     } else {
     //this is where the actual code for the command goes
     Pet.findOne({
@@ -38,7 +38,7 @@ module.exports = {
         cooldown.add(message.author.id);
         setTimeout(() => {
           cooldown.delete(message.author.id);
-        }, 60000);
+        }, 10000);
     }
 }
 }
