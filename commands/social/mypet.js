@@ -10,7 +10,7 @@ module.exports = {
     name: "mypet",
     category: "social",
     description: "check your pet stats.",
-    aliases: ["petinfo"],
+    aliases: ["petinfo", "pet"],
 run: async (bot, message, args) => {
     //this is where the actual code for the command goes
     Pet.findOne({
@@ -22,7 +22,7 @@ run: async (bot, message, args) => {
 
         if(!res){
             embed.setColor("RED")
-            embed.addField("Sorry!", "You don't have a pet... Please type !getpet.")
+            embed.addField("Sorry!", "You don't have a pet... Please type la!getpet.")
         }else{
             embed.setColor("BLURPLE");
             embed.addField("Pet Name", res.petName);
