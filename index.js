@@ -92,8 +92,8 @@ if(message.author.bot) return;
     const club3 = message.guild.roles.find(r => r.id === "728980062908448818");
     const club4 = message.guild.roles.find(r => r.id === "728980098790981652");
     const club5 = message.guild.roles.find(r => r.id === "728980122618822738");
-    roleid = club1.id;
     if(!message.member.roles.has(club1.id) && !message.member.roles.has(club2.id) && !message.member.roles.has(club3.id) && !message.member.roles.has(club4.id) && !message.member.roles.has(club5.id)) return;
+    roleid = club1.id;
     if(message.member.roles.has(club1.id)) {
         roleid = club1.id;
     } else
@@ -109,7 +109,6 @@ if(message.author.bot) return;
     if(message.member.roles.has(club5.id)) {
         roleid = club5.id;
     }
-    console.log(roleid);
     
     Stat.findOne({
       roleID: roleid  
