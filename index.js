@@ -93,7 +93,7 @@ if(message.author.bot) return;
     const club4 = message.guild.roles.find(r => r.id === "728980098790981652");
     const club5 = message.guild.roles.find(r => r.id === "728980122618822738");
     roleid = club1.id;
-   // if(!message.member.hasRole(club1) && !message.member.hasRole(club2) && !message.member.hasRole(club3) && !message.member.hasRole(club4) && !message.member.hasRole(club5)) return;
+    if(!message.member.roles.has(club1.id) && !message.member.roles.has(club2.id) && !message.member.roles.has(club3.id) && !message.member.roles.has(club4.id) && !message.member.roles.has(club5.id)) return;
     if(message.member.roles.has(club1.id)) {
         roleid = club1.id;
     } else
@@ -125,7 +125,7 @@ if(message.author.bot) return;
             })
             await newstat.save().catch(e => console.log(e));
         }
-        //if(sta.blacklisted.includes(message.channel.id)) return;
+        if(sta.blacklisted.includes(message.channel.id)) return;
         sta.messages += 1;
         await sta.save().catch(e => console.log(e));
     })
