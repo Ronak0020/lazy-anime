@@ -74,7 +74,7 @@ if(message.author.bot) return;
                 top: "",
                 blacklisted: [],
                 messages: 0,
-                eventWins: 0
+                eventwins: 0
             })
             await newstat.save().catch(e => console.log(e));
         }
