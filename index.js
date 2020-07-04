@@ -84,8 +84,8 @@ client.on("message", async message => {
     })
 })
 
-client.on("message", async message => {
-if(message.author.bot) return;
+client.on("message", async(message) => {
+//if(message.author.bot) return;
     let roleid = "";
     const club1 = message.guild.roles.get("728979973230166196");
     const club2 = message.guild.roles.get("728980035226173511");
@@ -114,11 +114,11 @@ if(message.author.bot) return;
             })
             await newstat.save().catch(e => console.log(e));
         }
-        if(sta.blacklisted.includes(message.channel.id)) return;
+        //if(sta.blacklisted.includes(message.channel.id)) return;
         sta.messages += 1;
         await stat.save().catch(e => console.log(e));
     })
-});
+})
 
 client.on("message", async message => {
     if (message.author.bot) return;
