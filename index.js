@@ -57,12 +57,12 @@ if(message.author.bot) return;
     const club3 = message.guild.roles.get("728980062908448818");
     const club4 = message.guild.roles.get("728980098790981652");
     const club5 = message.guild.roles.get("728980122618822738");
-    if(!message.member.roles.has(club1) && !message.member.roles.has(club2) && !message.member.roles.has(club3) && !message.member.roles.has(club4) && !message.member.roles.has(club5)) return;
-    if(message.member.roles.has(club1)) roleid = club1.id;
-    if(message.member.roles.has(club2)) roleid = club2.id;
-    if(message.member.roles.has(club3)) roleid = club3.id;
-    if(message.member.roles.has(club4)) roleid = club4.id;
-    if(message.member.roles.has(club5)) roleid = club5.id;
+    if(!message.member.hasRole(club1) && !message.member.roles.has(club2) && !message.member.roles.has(club3) && !message.member.roles.has(club4) && !message.member.roles.has(club5)) return;
+    if(message.member.hasRole(club1)) roleid = club1.id;
+    if(message.member.hasRole(club2)) roleid = club2.id;
+    if(message.member.hasRole(club3)) roleid = club3.id;
+    if(message.member.hasRole(club4)) roleid = club4.id;
+    if(message.member.hasRole(club5)) roleid = club5.id;
     
     Stat.findOne({
       roleID: roleid  
