@@ -50,41 +50,6 @@ client.on("ready", () => {
 });
 
 client.on("message", async message => {
-if(message.author.bot) return;
-    let roleid = "";
-    const club1 = message.guild.roles.get("728979973230166196");
-    const club2 = message.guild.roles.get("728980035226173511");
-    const club3 = message.guild.roles.get("728980062908448818");
-    const club4 = message.guild.roles.get("728980098790981652");
-    const club5 = message.guild.roles.get("728980122618822738");
-   // if(!message.member.hasRole(club1) && !message.member.hasRole(club2) && !message.member.hasRole(club3) && !message.member.hasRole(club4) && !message.member.hasRole(club5)) return;
-    if(message.member.hasRole(club1)) roleid = club1.id;
-    if(message.member.hasRole(club2)) roleid = club2.id;
-    if(message.member.hasRole(club3)) roleid = club3.id;
-    if(message.member.hasRole(club4)) roleid = club4.id;
-    if(message.member.hasRole(club5)) roleid = club5.id;
-    
-    Stat.findOne({
-      roleID: roleid  
-    }, async(err, stat) => {
-        if(err) console.log(err);
-        if(!stat) {
-            const newstat = new Stat({
-                roleID: roleid,
-                top: "",
-                blacklisted: [],
-                messages: 0,
-                eventwins: 0
-            })
-            await newstat.save().catch(e => console.log(e));
-        }
-        if(stat.blacklisted.includes(message.channel.id)) return;
-        stat.messages += 1;
-        await stat.save().catch(e => console.log(e));
-    })
-});
-
-client.on("message", async message => {
     if(message.author.bot) return;
     Money.findOne({
         serverID: message.guild.id,
@@ -118,6 +83,42 @@ client.on("message", async message => {
         })
     })
 })
+
+client.on("message", async message => {
+if(message.author.bot) return;
+    let roleid = "";
+    const club1 = message.guild.roles.get("728979973230166196");
+    const club2 = message.guild.roles.get("728980035226173511");
+    const club3 = message.guild.roles.get("728980062908448818");
+    const club4 = message.guild.roles.get("728980098790981652");
+    const club5 = message.guild.roles.get("728980122618822738");
+   // if(!message.member.hasRole(club1) && !message.member.hasRole(club2) && !message.member.hasRole(club3) && !message.member.hasRole(club4) && !message.member.hasRole(club5)) return;
+    if(message.member.hasRole(club1)) roleid = club1.id;
+    if(message.member.hasRole(club2)) roleid = club2.id;
+    if(message.member.hasRole(club3)) roleid = club3.id;
+    if(message.member.hasRole(club4)) roleid = club4.id;
+    if(message.member.hasRole(club5)) roleid = club5.id;
+    console.log(roleid);
+    
+    Stat.findOne({
+      roleID: roleid  
+    }, async(err, sta) => {
+        if(err) console.log(err);
+        if(!sta) {
+            const newstat = new Stat({
+                roleID: roleid,
+                top: "",
+                blacklisted: [],
+                messages: 0,
+                eventwins: 0
+            })
+            await newstat.save().catch(e => console.log(e));
+        }
+        if(sta.blacklisted.includes(message.channel.id)) return;
+        sta.messages += 1;
+        await stat.save().catch(e => console.log(e));
+    })
+});
 
 client.on("message", async message => {
     if (message.author.bot) return;
