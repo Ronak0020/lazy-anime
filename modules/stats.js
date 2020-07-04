@@ -4,7 +4,8 @@ const STATS = new Schema({
 roleID: String,
 messages: Number,
 eventwins: Number,
-top: String
+top: String,
+blacklisted: []
 });
 
 module.exports = model("LAclubsStats", STATS);
