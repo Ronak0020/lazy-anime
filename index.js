@@ -94,21 +94,21 @@ if(message.author.bot) return;
     const club5 = message.guild.roles.find(r => r.id === "728980122618822738");
     roleid = club1.id;
    // if(!message.member.hasRole(club1) && !message.member.hasRole(club2) && !message.member.hasRole(club3) && !message.member.hasRole(club4) && !message.member.hasRole(club5)) return;
-    /*if(message.member.roles.includes(club1.id)) {
+    if(message.member.roles.has(club1.id)) {
         roleid = club1.id;
     } else
-    if(message.member.roles.includes(club2.id)) {
+    if(message.member.roles.has(club2.id)) {
         roleid = club2.id;
     } else
-    if(message.member.roles.includes(club3.id)) {
+    if(message.member.roles.has(club3.id)) {
         roleid = club3.id;
     } else
-    if(message.member.roles.includes(club4.id)) {
+    if(message.member.roles.has(club4.id)) {
         roleid = club4.id;
     } else
-    if(message.member.roles.includes(club5.id)) {
+    if(message.member.roles.has(club5.id)) {
         roleid = club5.id;
-    }*/
+    }
     console.log(roleid);
     
     Stat.findOne({
@@ -127,7 +127,7 @@ if(message.author.bot) return;
         }
         //if(sta.blacklisted.includes(message.channel.id)) return;
         sta.messages += 1;
-        await stat.save().catch(e => console.log(e));
+        await sta.save().catch(e => console.log(e));
     })
 })
 
