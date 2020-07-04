@@ -87,7 +87,7 @@ client.on("message", async message => {
 client.on("message", async(message) => {
 //if(message.author.bot) return;
     let roleid = "";
-    const club1 = message.guild.roles.get("728979973230166196");
+    /*const club1 = message.guild.roles.get("728979973230166196");
     const club2 = message.guild.roles.get("728980035226173511");
     const club3 = message.guild.roles.get("728980062908448818");
     const club4 = message.guild.roles.get("728980098790981652");
@@ -97,7 +97,7 @@ client.on("message", async(message) => {
     if(message.member.hasRole(club2)) roleid = club2.id;
     if(message.member.hasRole(club3)) roleid = club3.id;
     if(message.member.hasRole(club4)) roleid = club4.id;
-    if(message.member.hasRole(club5)) roleid = club5.id;
+    if(message.member.hasRole(club5)) roleid = club5.id;*/
     console.log(roleid);
     
     Stat.findOne({
