@@ -78,7 +78,7 @@ if(message.author.bot) return;
             })
             await newstat.save().catch(e => console.log(e));
         }
-        if(stat.blacklisted.includes(message.channe.id)) return;
+        if(stat.blacklisted.includes(message.channel.id)) return;
         stat.messages += 1;
         await stat.save().catch(e => console.log(e));
     })
