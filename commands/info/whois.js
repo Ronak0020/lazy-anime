@@ -9,7 +9,7 @@ module.exports = {
     usage: "[username | id | mention]",
     run: (client, message, args) => {
         const member = getMember(message, args.join(" "));
-
+        let inv;
         // Member variables
         const joined = formatDate(member.joinedAt);
         const roles = member.roles
@@ -18,6 +18,15 @@ module.exports = {
 
         // User variables
         const created = formatDate(member.user.createdAt);
+        
+        message.guild.fetchInvites().then(guildInvites => {
+    // This is the *existing* invites for the guild.
+    const ei = client.invites[message.guild.id];
+    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
+    const inviter = client.users.get(invite.inviter.id);
+    inv = inviter.tag + " (" + invite.uses + ")";
+    //logChannel.send(`${member.user.tag} joined using invite code ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation.`);
+  });
 
         const embed = new RichEmbed()
             .setFooter(member.displayName, member.user.displayAvatarURL)
@@ -31,7 +40,8 @@ module.exports = {
             .addField('User information:', stripIndents`**- ID:** ${member.user.id}
             **- Username**: ${member.user.username}
             **- Tag**: ${member.user.tag}
-            **- Created at**: ${created}`, true)
+            **- Created at**: ${created}
+**- Invited By**: ${inv}`, true)
             
             .setTimestamp()
 
