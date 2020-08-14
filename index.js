@@ -10,6 +10,7 @@ const Module = require('./modules/module.js');
 const AFK = require('./modules/afk.js');
 const Stat = require("./modules/stats.js");
 const dbURL = process.env.MONGODBURL;
+const wait = require('util').promisify(setTimeout);
 
 mongoose.connect(dbURL, {
     useNewUrlParser: true
@@ -30,6 +31,7 @@ client.categories = fs.readdirSync("./commands/");
 });
 
 client.on("ready", () => {
+    wait(1000);
     console.log(`Hi, ${client.user.username} is now online!`);
 
     client.user.setPresence({
